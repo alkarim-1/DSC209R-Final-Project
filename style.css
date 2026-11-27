@@ -1,894 +1,694 @@
-/* =========================================
-   GLOBAL PAGE STYLING
-========================================= */
+:root {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --ink: #1e293b;
+  --navy: #1b2a49;
+  --muted: #64748b;
+  --line: #dde4ec;
+  --link: #2563eb;
+  --accent: #1b2a49;
 
-* {
-    box-sizing: border-box;
+  /* female = pink, male = blue, neutral = grey */
+  --female: #c0508a;
+  --male: #3f7fb3;
+  --neutral: #8a94a6;
+  --female-tint: #fbeef5;
+  --male-tint: #edf4fa;
+
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 14px rgba(15, 23, 42, 0.05);
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
+
+* { box-sizing: border-box; }
 
 body {
-    margin: 0;
-    padding: 28px;
-    background-color: #f3f6fa;
-    color: #243047;
-    font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
 }
 
-.dashboard {
-    max-width: 1500px;
-    margin: 0 auto;
+a { color: var(--link); }
+.muted { color: var(--muted); }
+
+/* header deets */
+.hero { max-width: 1080px; margin: 0 auto; padding: 64px 32px 8px; }
+.hero h1 {
+  margin: 0 0 22px;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--navy);
+}
+.meta { margin: 0 0 6px; font-size: 1.05rem; color: #334155; }
+.meta .label {
+  display: inline-block;
+  min-width: 128px;
+  margin-right: 10px;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
+/* figure deets */
+main { max-width: 1080px; margin: 0 auto; padding: 0 32px 64px; }
 
-/* =========================================
-   PAGE HEADER
-========================================= */
-
-.page-header {
-    margin-bottom: 22px;
+.figure, .notes {
+  margin-top: 40px;
+  padding: 30px 32px 24px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
-
-.eyebrow,
-.visual-number {
-    margin: 0 0 6px;
-    color: #4779a7;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.3px;
+.kicker {
+  margin: 0 0 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
-
-h1 {
-    margin: 0 0 8px;
-    color: #172b4d;
-    font-size: 28px;
+.figure-title {
+  margin: 0 0 10px;
+  max-width: 900px;
+  min-height: 2.4em;
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--navy);
 }
+.figure-subtitle { margin: 0 0 18px; max-width: 800px; font-size: 0.95rem; color: #475569; }
+.figure-note { margin: 12px 0 0; max-width: 800px; font-size: 0.82rem; color: var(--muted); }
+.hint { margin: 8px 0 14px; font-size: 0.82rem; color: var(--muted); }
 
-.subtitle {
-    max-width: 850px;
-    margin: 0;
-    color: #647087;
-    line-height: 1.6;
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+/* story buttons */
+.stories { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-bottom: 10px; }
+.stories-label { margin-right: 4px; font-size: 0.72rem; font-weight: 650; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.chip {
+  font: inherit;
+  font-size: 0.86rem;
+  padding: 6px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
+.chip:hover { background: #f1f5f9; border-color: #94a3b8; }
+.chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.story-text {
+  margin: 0 0 18px;
+  max-width: 820px;
+  min-height: 3.2em;
+  padding: 10px 14px;
+  font-size: 0.93rem;
+  color: #334155;
+  background: #f8fafc;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+}
+.story-text strong { color: var(--ink); }
 
-
-/* =========================================
-   YEAR CONTROLS
-========================================= */
-
+/* controls */
 .controls {
-    display: flex;
-    align-items: center;
-    gap: 22px;
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(280px, 1.6fr) minmax(200px, 1fr);
+  gap: 16px 28px;
+  align-items: end;
+  padding: 16px 18px;
+  background: #f8fafc;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.control { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.control label {
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.control output { margin-left: 4px; font-size: 1.05rem; font-weight: 700; letter-spacing: 0; color: var(--ink); font-variant-numeric: tabular-nums; }
+.to-row { display: flex; align-items: center; gap: 14px; }
+input[type="range"] { flex: 1; width: 100%; min-width: 100px; height: 28px; accent-color: var(--accent); cursor: pointer; }
+select {
+  font: inherit;
+  font-size: 0.93rem;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  max-width: 100%;
+}
+#play, .play-btn {
+  font: inherit;
+  font-size: 0.93rem;
+  font-weight: 600;
+  flex: 0 0 auto;
+  min-width: 96px;
+  height: 38px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+#play:hover, .play-btn:hover { background: #2b3f69; }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 
-    margin-bottom: 14px;
-    padding: 18px;
+/* legend */
+.legend { display: flex; flex-wrap: wrap; gap: 8px 26px; margin: 0 0 8px; font-size: 0.82rem; color: #475569; }
+.legend-item { display: inline-flex; align-items: center; gap: 8px; }
+.legend svg { width: auto; height: 16px; overflow: visible; }
 
-    background-color: white;
+/* internals for the main chart */
+.axis text { font-size: 11.5px; fill: #64748b; }
+.axis path, .axis line { stroke: #cbd5e1; }
+.grid-x line { stroke: #eef2f6; }
+.grid-x path { display: none; }
+.axis-label { font-size: 12.5px; fill: #334155; }
+.country-label { font-size: 12.5px; fill: #1e293b; text-anchor: end; }
+.zero-line { stroke: #475569; stroke-width: 1.3; }
+.zone-label { font-size: 12px; font-weight: 650; }
+.zone-label.f { fill: var(--female); }
+.zone-label.m { fill: var(--male); }
 
-    border: 1px solid #dce4ee;
-    border-radius: 14px;
+.row .row-bg { fill: transparent; }
+.row .hit { fill: transparent; cursor: pointer; outline: none; }
+.row .link { stroke-width: 3.2; stroke-linecap: round; stroke-opacity: 0.85; }
+.row .dot.start { fill: #fff; stroke: #475569; stroke-width: 1.8; }
+.row .dot.end { stroke: #fff; stroke-width: 1.2; }
+.row { transition: opacity 0.15s; }
+.row.is-selected .row-bg { fill: rgba(27, 42, 73, 0.07); }
+.row.is-selected .country-label { font-weight: 700; }
+.row.is-story .country-label { font-weight: 700; }
+.row .hit:focus-visible { stroke: var(--link); stroke-width: 2; }
 
-    box-shadow:
-        0 4px 14px rgba(35, 48, 71, 0.07);
+svg.hovering .row:not(.is-hover) { opacity: 0.38; }
+svg.focus-mode .row:not(.is-story) { opacity: 0.4; }
+svg.focus-mode.hovering .row.is-hover { opacity: 1; }
+
+.annotation { font-size: 11.5px; fill: #334155; pointer-events: none; }
+.annotation-line { stroke: #94a3b8; stroke-width: 1; }
+
+/* detail/story chart */
+.detail {
+  margin-top: 26px;
+  padding: 20px 22px 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+.detail.flash { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(27, 42, 73, 0.12); }
+.detail-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; }
+.detail-head h3 { margin: 0; font-size: 1.15rem; color: var(--navy); }
+.detail-select { display: flex; align-items: center; gap: 10px; }
+.detail-select label { font-size: 0.72rem; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.detail-sub { margin: 6px 0 12px; max-width: 800px; font-size: 0.93rem; color: #334155; }
+
+.gap-area { fill: #94a3b8; fill-opacity: 0.22; }
+.line-f, .line-m { fill: none; stroke-width: 2.6; stroke-linejoin: round; }
+.line-f { stroke: var(--female); }
+.line-m { stroke: var(--male); }
+.end-label { font-size: 12px; font-weight: 650; }
+.year-mark { stroke: #64748b; stroke-width: 1.2; }
+.year-mark.from { stroke-dasharray: 4 3; }
+.year-mark-label { font-size: 11.5px; font-weight: 650; fill: #334155; }
+.crosshair line { stroke: #94a3b8; stroke-width: 1; }
+.overlay { fill: transparent; cursor: ew-resize; touch-action: none; }
+.halo { paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; font-size: 11.5px; font-weight: 600; fill: #1e293b; pointer-events: none; }
+
+/* tooltip */
+.tooltip {
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  min-width: 210px;
+  max-width: 280px;
+  padding: 10px 12px;
+  background: rgba(15, 23, 42, 0.96);
+  color: #fff;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.3);
+  transition: opacity 0.1s;
+}
+.tooltip strong { font-size: 0.95rem; }
+.tooltip .tip-h { margin-top: 7px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #94a3b8; }
+.tooltip .row { display: flex; justify-content: space-between; gap: 16px; }
+.tooltip .row span:first-child { color: #cbd5e1; }
+.tooltip .tip-foot { margin-top: 8px; font-size: 0.72rem; color: #94a3b8; }
+
+.error { padding: 14px 16px; margin-bottom: 18px; border: 1px solid #fca5a5; background: #fef2f2; border-radius: 10px; }
+[hidden] { display: none !important; }
+
+/* Prototype Write-Up Section */
+.notes h2 { margin: 0 0 6px; font-size: 1.4rem; color: var(--navy); }
+.notes h3 { margin: 22px 0 6px; font-size: 1.02rem; }
+.notes p { max-width: 800px; margin: 0 0 10px; color: #334155; }
+
+footer { max-width: 1080px; margin: 0 auto; padding: 0 32px 48px; color: var(--muted); font-size: 0.85rem; }
+
+@media (max-width: 900px) {
+  .controls { grid-template-columns: 1fr 1fr; }
+  .control-to { grid-column: 1 / -1; order: -1; }
+}
+@media (max-width: 720px) {
+  .hero { padding: 44px 20px 4px; }
+  main, footer { padding-left: 20px; padding-right: 20px; }
+  .figure, .notes { padding: 22px 16px 16px; }
+  .meta .label { display: block; min-width: 0; margin-bottom: 0; }
+  .meta { margin-bottom: 10px; }
+  .controls { grid-template-columns: 1fr; }
+  .to-row { flex-wrap: wrap; }
+  .detail { padding: 16px 12px 8px; }
 }
 
-#play-button {
-    min-width: 105px;
-    padding: 11px 16px;
+.annotation text { paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
 
-    background-color: #276fa8;
-    color: white;
-
-    border: none;
-    border-radius: 8px;
-
-    font-size: 15px;
-    font-weight: 700;
-
-    cursor: pointer;
+/* article layout - intro, points, main point, conclusion */
+.intro { margin-top: 40px; max-width: 840px; }
+.section-title {
+  margin: 0 0 12px;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 780;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--navy);
 }
+.intro-text { margin: 0; font-size: 1.12rem; line-height: 1.65; color: #334155; }
 
-#play-button:hover {
-    background-color: #1d5b8c;
+.point { margin-top: 72px; }
+.point > .kicker { margin-bottom: 4px; }
+.point-details { max-width: 840px; }
+.point-details p { margin: 0 0 10px; font-size: 1.05rem; color: #334155; }
+.point .figure { margin-top: 22px; }
+.point-main {
+  max-width: 840px;
+  margin-top: 20px;
+  padding: 14px 20px 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  box-shadow: var(--shadow);
 }
-
-.slider-area {
-    flex: 1;
+.point-main p { margin: 0; font-size: 1.05rem; color: var(--ink); }
+.point-main .point-main-label {
+  margin: 0 0 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
+.conclusion { margin-top: 72px; }
+.conclusion p { font-size: 1.05rem; }
 
-.slider-heading {
-    display: flex;
-    justify-content: space-between;
 
-    margin-bottom: 6px;
+/* figures 2, 3 and 4 */
+.controls.controls-team { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.controls-team .control-to { grid-column: auto; order: 0; }
+.control-label { font-size: 0.72rem; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.seg { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-height: 38px; }
+.tf-chart { width: 100%; max-width: 900px; margin: 0 auto; }
+.tf .zone-label { paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
+.bg-year { fill: #e8edf4; font-weight: 800; pointer-events: none; }
 
-    color: #45536b;
-}
+/* figure 2 */
+.pt { stroke: #fff; stroke-width: 1.2; cursor: pointer; }
+.pt:hover, .pt.is-hl { stroke: var(--navy); stroke-width: 2; }
+svg.trace .pt:not(.is-hl) { opacity: 0.28; }
+.trail { fill: none; stroke: var(--navy); stroke-width: 1.6; stroke-opacity: 0.6; stroke-linejoin: round; pointer-events: none; }
+.ring { fill: none; stroke: var(--navy); stroke-width: 2; pointer-events: none; }
 
-#selected-year {
-    color: #276fa8;
-    font-size: 24px;
-}
+/* figure 3 */
+.pt3 { stroke: #fff; stroke-width: 1.2; cursor: pointer; }
+.pt3:hover { stroke: var(--navy); stroke-width: 2; }
+.eq-line { stroke: #475569; stroke-width: 1.3; stroke-dasharray: 5 5; pointer-events: none; }
+.grad { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; color: #475569; }
+.grad-bar { display: inline-block; width: 170px; max-width: 40vw; height: 10px; border: 1px solid #d6dee8; border-radius: 5px; }
 
-#year-slider {
-    width: 100%;
-    height: 8px;
+/* figure 4 */
+.l4 { stroke: #aeb8c7; stroke-width: 1.4; stroke-opacity: 0.8; pointer-events: none; }
+.ct circle { stroke: #fff; stroke-width: 1.1; cursor: pointer; }
+.ct .dm { fill: var(--male); fill-opacity: 0.88; }
+.ct .df { fill: var(--female); fill-opacity: 0.88; }
+.ct:hover circle, .ct.is-hl circle { stroke: var(--navy); stroke-width: 2; }
+svg.trace .ct:not(.is-hl) { opacity: 0.22; }
+svg.show-female .dm, svg.show-female .l4 { display: none; }
+svg.show-male .df, svg.show-male .l4 { display: none; }
 
-    cursor: pointer;
 
-    accent-color: #276fa8;
-}
 
-.slider-limits {
-    display: flex;
-    justify-content: space-between;
+/* ==================================================
+   FIGURE 1 — AND
+   ALI: LIFE EXPECTANCY BY GENDER
 
-    margin-top: 5px;
+   These styles are only for Ali's visualization.
+   The rest of the webpage continues using the
+   teammate's original styles.
+================================================== */
 
-    color: #7b8799;
-    font-size: 12px;
-}
-/* =========================================
-   VISUAL 1 GENDER CONTROLS
-========================================= */
 
-.gender-controls {
+/* Controls above Ali's chart */
+
+#ali-controls {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
 
-    gap: 6px;
+    gap: 12px;
 
-    margin-top: 10px;
+    margin: 18px 0 16px;
+    padding: 14px 16px;
+
+    background-color: #f8fafc;
+
+    border: 1px solid #dbe3ec;
+    border-radius: 10px;
 }
 
-.gender-label {
-    margin-right: 2px;
 
-    color: #45536b;
+#ali-controls label {
+    color: #475569;
 
-    font-size: 10px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.gender-button {
-    padding: 5px 10px;
+
+/* Country dropdown */
+
+#ali-country {
+    flex: 1;
+
+    min-width: 220px;
+
+    padding: 9px 12px;
 
     background-color: white;
-    color: #526078;
+    color: #334155;
 
-    border: 1px solid #bdc8d7;
-    border-radius: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
 
-    font-size: 10px;
+    font-family: inherit;
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+/* Reset Zoom button */
+
+#ali-reset {
+    padding: 9px 14px;
+
+    background-color: white;
+    color: #334155;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 14px;
     font-weight: 600;
 
     cursor: pointer;
 
-    transition: 0.2s;
-}
-
-.gender-button:hover {
-    background-color: #eef3f8;
-}
-
-.gender-button.active {
-    background-color: #243b5a;
-    color: white;
-
-    border-color: #243b5a;
+    transition:
+        background-color 0.2s,
+        border-color 0.2s;
 }
 
 
-
-/* =========================================
-   SIX VISUAL DASHBOARD
-
-   3 columns × 2 rows
-========================================= */
-
-.visual-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-    gap: 12px;
-
-    align-items: stretch;
+#ali-reset:hover {
+    background-color: #f1f5f9;
+    border-color: #94a3b8;
 }
 
 
-/* =========================================
-   ALL VISUAL CARDS
-========================================= */
+/* Current zoom window */
 
-.chart-card {
-    position: relative;
-
-    min-width: 0;
-    min-height: 430px;
-
-    padding: 14px;
-
-    background-color: white;
-
-    border: 1px solid #dce4ee;
-    border-radius: 10px;
-
-    box-shadow:
-        0 3px 10px rgba(35, 48, 71, 0.06);
-
-    overflow: hidden;
-}
-
-.chart-heading {
-    min-height: 105px;
-
-    display: flex;
-
-    align-items: flex-start;
-    justify-content: space-between;
-
-    gap: 15px;
-
-    margin-bottom: 8px;
-}
-
-.chart-heading h2 {
-    margin: 0 0 5px;
-
-    color: #172b4d;
-
-    font-size: 21px;
-}
-
-.chart-heading p {
-    margin: 0;
-
-    color: #69758a;
+#ali-window {
+    color: #64748b;
 
     font-size: 13px;
-    line-height: 1.5;
-}
-
-
-/* =========================================
-   VISUAL 1 LEGEND
-========================================= */
-
-.legend {
-    display: flex;
-
-    gap: 14px;
-
-    padding-top: 6px;
-
-    color: #526078;
-
-    font-size: 13px;
+    font-weight: 600;
 
     white-space: nowrap;
 }
 
-.legend-dot {
-    display: inline-block;
 
-    width: 11px;
-    height: 11px;
 
-    margin-right: 5px;
+/* ==================================================
+   ALI CHART CONTAINER
+================================================== */
 
-    border-radius: 50%;
-}
-
-.female-dot {
-    background-color: #d35d91;
-}
-
-.male-dot {
-    background-color: #3487bd;
-}
-
-.observation-count {
-    margin: 10px 0 0;
-
-    color: #69758a;
-
-    font-size: 12px;
-}
-
-
-/* =========================================
-   RESPONSIVE DESIGN
-========================================= */
-
-@media (max-width: 1200px) {
-
-    .visual-grid {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-    }
-}
-
-
-@media (max-width: 750px) {
-
-    body {
-        padding: 10px;
-    }
-
-    .visual-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .dashboard-header {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .dashboard-controls {
-        position: static;
-        grid-template-columns: 1fr;
-    }
-
-    .gender-controls {
-        flex-wrap: wrap;
-    }
-
-    .chart-heading {
-        min-height: auto;
-    }
-}
-
-
-
-/* =========================================
-   VISUAL 2
-========================================= */
-
-.gap-legend {
-    display: flex;
-    flex-wrap: wrap;
-
-    gap: 15px;
-
-    margin: 10px 0;
-
-    color: #526078;
-
-    font-size: 12px;
-}
-
-.legend-square {
-    display: inline-block;
-
-    width: 11px;
-    height: 11px;
-
-    margin-right: 5px;
-
-    border-radius: 2px;
-}
-
-.women-longer {
-    background-color: #d35d91;
-}
-
-.men-longer {
-    background-color: #3487bd;
-}
-
-.gap-summary {
-    display: flex;
-
-    align-items: baseline;
-
-    gap: 9px;
-
-    min-height: 38px;
-
-    margin: 10px 0;
-}
-
-.gap-summary strong {
-    color: #25334b;
-
-    font-size: 22px;
-}
-
-.gap-summary span {
-    color: #69758a;
-
-    font-size: 12px;
-}
-
-.gap-zero-line {
-    stroke: #4f5b6d;
-
-    stroke-width: 1.5;
-
-    stroke-dasharray: 4, 4;
-}
-
-.gap-bar-label,
-.gap-value-label {
-    fill: #445168;
-
-    font-size: 10px;
-}
-
-.gap-value-label {
-    font-weight: 700;
-}
-
-.gap-axis-label {
-    fill: #344158;
-
-    font-size: 11px;
-
-    font-weight: 700;
-}
-.gap-point {
-    cursor: pointer;
-}
-
-.gap-zero-line {
-    stroke: #4f5b6d;
-    stroke-width: 1.5;
-}
-
-.gap-explanation {
-    fill: #69758a;
-    font-size: 11px;
-    font-style: italic;
-    pointer-events: none;
-}
-/* =========================================
-   VISUAL 3
-   WHO MAKES IT TO 65?
-========================================= */
-
-.survival-summary {
-    display: flex;
-    align-items: baseline;
-    gap: 9px;
-    min-height: 38px;
-    margin: 10px 0;
-}
-
-.survival-summary strong {
-    color: #25334b;
-    font-size: 22px;
-}
-
-.survival-summary span {
-    color: #69758a;
-    font-size: 12px;
-}
-
-
-/* Survival-gap color legend */
-
-.survival-legend {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    margin: 8px 0 14px;
-    color: #69758a;
-    font-size: 11px;
-}
-
-.survival-gradient {
-    width: 150px;
-    height: 10px;
-
-    background: linear-gradient(
-        90deg,
-        #440154,
-        #31688e,
-        #35b779,
-        #fde725
-    );
-
-    border: 1px solid #d6dee8;
-    border-radius: 5px;
-}
-
-
-/* Country circles */
-
-.survival-point {
-    cursor: pointer;
-
-    transition:
-        opacity 0.2s,
-        stroke-width 0.2s;
-}
-
-
-/* Female survival = male survival */
-
-.survival-equality-line {
-    stroke: #4f5b6d;
-    stroke-width: 1.5;
-    stroke-dasharray: 5, 5;
-    pointer-events: none;
-}
-
-
-/* Equality-line explanation */
-
-.survival-explanation {
-    fill: #69758a;
-    font-size: 11px;
-    font-style: italic;
-    pointer-events: none;
-}
-
-
-
-/* =========================================
-   D3 CHARTS
-========================================= */
-
-#chart,
-#gap-chart,
-#survival-chart,
-#visual-4,
-#visual-5,
-#visual-6 {
+#ali-life-expectancy-chart {
     width: 100%;
+
+    margin-top: 8px;
 }
 
-svg {
+
+#ali-life-expectancy-chart svg {
     display: block;
 
     width: 100%;
-
     height: auto;
 }
 
-.axis-label {
-    fill: #344158;
 
-    font-size: 14px;
 
-    font-weight: 700;
+/* ==================================================
+   ALI AXES
+================================================== */
+
+#ali-life-expectancy-chart .ali-axis text {
+    fill: #64748b;
+
+    font-size: 11px;
 }
 
-.background-year {
-    fill: #e8edf4;
 
-    font-size: 78px;
+#ali-life-expectancy-chart .ali-axis path {
+    stroke: #cbd5e1;
+}
 
-    font-weight: 800;
+
+#ali-life-expectancy-chart .ali-axis line {
+    stroke: #cbd5e1;
+}
+
+
+
+/* ==================================================
+   ALI GRID
+================================================== */
+
+#ali-life-expectancy-chart .ali-grid line {
+    stroke: #e7edf3;
+
+    stroke-dasharray: 3, 3;
+}
+
+
+#ali-life-expectancy-chart .ali-grid path {
+    display: none;
+}
+
+
+
+/* ==================================================
+   FEMALE / MALE LINES
+================================================== */
+
+#ali-life-expectancy-chart .ali-line {
+    fill: none;
+
+    stroke-width: 3;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+
+/* ==================================================
+   HOVER CROSSHAIR
+================================================== */
+
+#ali-life-expectancy-chart .ali-crosshair {
+    stroke: #94a3b8;
+
+    stroke-width: 1;
+
+    stroke-dasharray: 4, 4;
 
     pointer-events: none;
 }
 
-.chart-note {
-    margin: 8px 0 0;
 
-    color: #69758a;
 
-    font-size: 12px;
+/* ==================================================
+   ZOOM / BRUSH
 
-    line-height: 1.5;
+   Reader can drag horizontally across Ali's chart
+   to zoom into a smaller time period.
+================================================== */
+
+#ali-life-expectancy-chart .ali-brush .selection {
+    fill: #64748b;
+
+    fill-opacity: 0.13;
+
+    stroke: #64748b;
+
+    stroke-width: 1;
 }
 
 
-/* =========================================
-   TEAMMATE PLACEHOLDERS
-
-   Teammates may remove the placeholder
-   class after inserting the D3 visual.
-========================================= */
-
-.visual-placeholder {
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    min-height: 400px;
-
-    background-color: #f8fafc;
-
-    color: #9aa5b5;
-
-    border: 2px dashed #d6dee8;
-    border-radius: 8px;
-
-    font-size: 14px;
+#ali-life-expectancy-chart .ali-brush .overlay {
+    cursor: crosshair;
 }
 
 
-/* =========================================
-   TOOLTIP
-========================================= */
 
-.tooltip {
+/* ==================================================
+   ALI HOVER TOOLTIP
+================================================== */
+
+.ali-tooltip {
     position: absolute;
 
-    display: none;
+    z-index: 1000;
 
-    min-width: 245px;
+    min-width: 150px;
 
-    padding: 13px 15px;
+    padding: 10px 12px;
 
-    background-color:
-        rgba(23, 43, 77, 0.96);
-
+    background-color: rgba(27, 42, 73, 0.96);
     color: white;
 
-    border-radius: 8px;
-
-    font-size: 13px;
-
-    line-height: 1.6;
-
-    pointer-events: none;
+    border-radius: 7px;
 
     box-shadow:
         0 5px 15px rgba(0, 0, 0, 0.18);
 
-    z-index: 100;
-}
+    font-size: 12px;
 
-.tooltip-title {
-    margin-bottom: 5px;
+    line-height: 1.55;
 
-    font-size: 15px;
-
-    font-weight: 700;
+    pointer-events: none;
 }
 
 
-/* =========================================
-   RESPONSIVE DESIGN
-
-   On smaller screens the two columns
-   become one column.
-========================================= */
-
-@media (max-width: 900px) {
-
-    body {
-        padding: 12px;
-    }
-
-    h1 {
-        font-size: 29px;
-    }
-
-    .visual-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .controls,
-    .chart-heading {
-        align-items: stretch;
-
-        flex-direction: column;
-    }
-
-    .chart-heading {
-        min-height: auto;
-    }
-
-    .legend {
-        white-space: normal;
-    }
-    
-}
-/* =========================================
-   DASHBOARD HEADER
-========================================= */
-
-.dashboard-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 25px;
-
-    margin-bottom: 18px;
-    padding: 22px 26px;
-
-    background-color: white;
-
-    border: 1px solid #dce4ee;
-    border-top: 5px solid #276fa8;
-    border-radius: 12px;
-
-    box-shadow:
-        0 4px 14px rgba(35, 48, 71, 0.07);
-}
-
-.dashboard-header .eyebrow {
-    margin-bottom: 7px;
-}
-
-.dashboard-header h1 {
-    margin: 0 0 7px;
-}
-
-.dashboard-header .subtitle {
-    margin: 0;
-}
-
-
-/* =========================================
-   CURRENT YEAR BADGE
-========================================= */
-
-.year-badge {
-    min-width: 110px;
-
-    padding: 12px 18px;
-
-    text-align: center;
-
-    background-color: #eef5fa;
-
-    border: 1px solid #cbdce9;
-    border-radius: 9px;
-}
-
-.year-badge span {
+.ali-tooltip strong {
     display: block;
 
     margin-bottom: 3px;
 
-    color: #69758a;
-
-    font-size: 10px;
-    font-weight: 700;
-
-    letter-spacing: 1px;
-}
-
-.year-badge strong {
-    color: #276fa8;
-
-    font-size: 27px;
+    font-size: 13px;
 }
 
 
-/* =========================================
-   DASHBOARD KPI ROW
-========================================= */
 
-.kpi-grid {
-    display: grid;
+/* ==================================================
+   AND / BUT / THEREFORE LABELS
 
-    grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+   Keep the teammate's kicker appearance but give
+   each narrative stage a subtle color distinction.
+================================================== */
 
-    gap: 12px;
-
-    margin-bottom: 20px;
-}
-
-.kpi-card {
-    padding: 15px 17px;
-
-    background-color: white;
-
-    border: 1px solid #dce4ee;
-    border-top: 4px solid #7c899b;
-    border-radius: 9px;
-
-    box-shadow:
-        0 3px 10px rgba(35, 48, 71, 0.05);
-}
-
-.kpi-card span {
-    display: block;
-
-    margin-bottom: 6px;
-
-    color: #69758a;
-
-    font-size: 10px;
-    font-weight: 700;
-
-    letter-spacing: 0.5px;
-
-    text-transform: uppercase;
-}
-
-.kpi-card strong {
-    color: #25334b;
-
-    font-size: 22px;
+#point-0 > .kicker {
+    color: #3f7fb3;
 }
 
 
-/* Selected year */
-
-.year-kpi {
-    border-top-color: #276fa8;
+#point-1 > .kicker {
+    color: #c0508a;
 }
 
 
-/* Female */
-
-.female-kpi {
-    border-top-color: #d35d91;
+#point-3 > .kicker {
+    color: #8a6e32;
 }
 
 
-/* Male */
 
-.male-kpi {
-    border-top-color: #3487bd;
+/* ==================================================
+   STORY TRANSITIONS
+
+   Slight visual separation between AND, BUT,
+   and THEREFORE without changing the teammate style.
+================================================== */
+
+#point-0,
+#point-1,
+#point-3 {
+    scroll-margin-top: 30px;
 }
 
 
-/* Population age 65+ */
-
-.aging-kpi {
-    border-top-color: #d89a2b;
+#point-0 .point-main {
+    border-left-color: #3f7fb3;
 }
 
 
-/* =========================================
-   DASHBOARD CARD ACCENT
-========================================= */
-
-.chart-card {
-    position: relative;
-    overflow: hidden;
+#point-1 .point-main {
+    border-left-color: #c0508a;
 }
 
 
-/* Small blue accent at top of each visual */
-
-.chart-card::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 95px;
-    height: 4px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #276fa8,
-            #62b6d8
-        );
-
-    border-radius: 14px 0 0 0;
+#point-3 .point-main {
+    border-left-color: #8a6e32;
 }
 
 
-/* =========================================
-   VISUAL NUMBER/TAG
-========================================= */
 
-.visual-number {
-    display: inline-block;
+/* ==================================================
+   RESPONSIVE ALI CONTROLS
+================================================== */
 
-    margin-bottom: 7px;
-    padding: 4px 7px;
+@media (max-width: 650px) {
 
-    background-color: #eef5fa;
-    color: #276fa8;
+    #ali-controls {
+        align-items: stretch;
+        flex-direction: column;
+    }
 
-    border-radius: 4px;
 
-    font-size: 10px;
-    font-weight: 700;
+    #ali-country {
+        width: 100%;
+    }
 
-    letter-spacing: 1px;
+
+    #ali-reset {
+        width: 100%;
+    }
+
+
+    #ali-window {
+        text-align: center;
+    }
+
 }
-
-.v1-y-axis-label {
-    font-size: 16px;
-}
-

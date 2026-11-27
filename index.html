@@ -2,493 +2,1113 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+
+    <meta charset="utf-8">
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
+        content="width=device-width, initial-scale=1"
     >
 
-    <title>Global Life Expectancy Explorer</title>
+    <title>
+        The Longevity Gap · Who Outlives Whom?
+    </title>
 
-    <link rel="stylesheet" href="style.css">
+    <meta
+        name="description"
+        content="Data Wranglers: an interactive look at life expectancy and the question 'Who outlives whom?'"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
-    <main class="dashboard">
 
-        <!-- =========================================
-             PAGE HEADER
-        ========================================== -->
+<!-- =========================================
+     HEADER
+========================================= -->
 
-        <header class="page-header">
+<header class="hero">
 
-            <p class="eyebrow">
-                GLOBAL LONGEVITY EXPLORER
-
-            </p>
-
-            <h1>Living Longer: Exploring Global Longevity, Gender, and Population Aging</h1>
-
-            <p class="subtitle">
-                Explore global patterns in life expectancy, survival to age 65,
-                gender differences, and population aging across countries and over time.
-            </p>
-
-        </header>
+    <h1>
+        The Longevity Gap
+    </h1>
 
 
-        <!-- =========================================
-             SHARED YEAR CONTROLS
-             Visuals can use the same selected year.
-        ========================================== -->
+    <p class="meta">
 
-        <section class="controls">
+        <span class="label">
+            Data
+        </span>
 
-            <button id="play-button" type="button">
-                ▶ Play
-            </button>
+        <a
+            href="https://github.com/light-and-salt/World-Bank-Data-by-Indicators"
+            target="_blank"
+            rel="noopener"
+        >
+            World Bank Data by Indicators
+        </a>
 
-            <div class="slider-area">
-
-                <div class="slider-heading">
-
-                    <span>Selected year</span>
-
-                    <strong id="selected-year">
-                        2019
-                    </strong>
-
-                </div>
-
-                <input
-                    type="range"
-                    id="year-slider"
-                    min="1960"
-                    max="2020"
-                    value="2019"
-                    step="1"
-                >
-
-                <div class="slider-limits">
-
-                    <span id="minimum-year">
-                        1960
-                    </span>
-
-                    <span id="maximum-year">
-                        2020
-                    </span>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        
-
-        <!-- =========================================
-             DASHBOARD GRID
-             2 columns × 3 rows = 6 visuals
-        ========================================== -->
-
-        <section class="visual-grid">
-
-
-            <!-- =====================================
-                 VISUAL 1
-                 DENNISE
-            ====================================== -->
-
-            <!-- =====================================
-     VISUAL 1
-     DENNISE
-====================================== -->
-
-<article class="chart-card">
-
-    <div class="chart-heading">
-
-        <div>
-
-            <p class="visual-number">
-                VISUAL 1
-            </p>
-
-            <h2 id="chart-title">
-                Female and Male Life Expectancy, 2019
-            </h2>
-
-            <p>
-                Compare life expectancy with the percentage
-                of the population age 65 and older.
-            </p>
-
-            <!-- Visual 1 gender filter -->
-
-            <div class="gender-controls">
-
-                <span class="gender-label">
-                    Show:
-                </span>
-
-                <button
-                    class="gender-button"
-                    data-gender="female"
-                    type="button"
-                >
-                    Female
-                </button>
-
-                <button
-                    class="gender-button"
-                    data-gender="male"
-                    type="button"
-                >
-                    Male
-                </button>
-
-                <button
-                    class="gender-button active"
-                    data-gender="both"
-                    type="button"
-                >
-                    Both
-                </button>
-
-            </div>
-
-        </div>
-
-        <div class="legend">
-
-            <span>
-                <i class="legend-dot female-dot"></i>
-                Female
-            </span>
-
-            <span>
-                <i class="legend-dot male-dot"></i>
-                Male
-            </span>
-
-        </div>
-
-    </div>
-
-    <p
-        id="observation-count"
-        class="observation-count"
-    ></p>
-
-    <div id="chart"></div>
-
-    <p class="chart-note">
-        Farther right means longer life expectancy.
-        Higher means a larger percentage of the
-        population is age 65 or older.
     </p>
 
-</article>
 
-            <!-- =====================================
-     VISUAL 2
-     DENNISE
+    <p class="meta">
 
-     Scatterplot:
-     X = Female life expectancy
-     Y = Female - Male life expectancy
-====================================== -->
-
-<article class="chart-card">
-
-    <div class="chart-heading">
-
-        <div>
-
-            <p class="visual-number">
-                VISUAL 2
-            </p>
-
-            <h2 id="gap-chart-title">
-                Who Outlives Whom? 2019
-            </h2>
-
-            <p>
-                See whether females or males live longer across
-                countries and how the size of the gap changes
-                with life expectancy.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- Visual 2 legend -->
-    <div class="gap-legend">
-
-        <span>
-            <i class="legend-dot female-dot"></i>
-            Females live longer
+        <span class="label">
+            Team
         </span>
 
-        <span>
-            <i class="legend-dot male-dot"></i>
-            Males live longer
-        </span>
+        Data Wranglers
 
-    </div>
-
-
-    <!-- Largest gap for selected year -->
-    <div class="gap-summary">
-
-        <strong id="largest-gap-value">
-            —
-        </strong>
-
-        <span id="largest-gap-country">
-            Largest difference
-        </span>
-
-    </div>
-
-
-    <!--
-        D3 VISUAL 2 GOES HERE
-
-        main.js will insert the scatterplot
-        into this container.
-    -->
-    <div id="gap-chart"></div>
-
-
-    <p class="chart-note">
-        Each circle represents one observation.
-        Points above zero indicate higher female life expectancy.
-        Points below zero indicate higher male life expectancy.
     </p>
 
-</article>
+
+    <p class="meta">
+
+        <span class="label">
+            Team members
+        </span>
+
+        Mia Mantei, Ali Karim, Mahir Oza, Dennise Arenas
+
+    </p>
 
 
-            <!-- =====================================
-                 VISUAL 3
-                 TEAMMATE
-                 
-                 TEAMMATE:
-                 Add Visual 3 HTML inside this card.
-                 Add D3 chart to #visual-3.
-            ====================================== -->
-    <article class="chart-card">
+    <p class="meta">
 
-        <div class="chart-heading">
+        <span class="label">
+            Topic
+        </span>
 
-            <div>
+        Life Expectancy
 
-                <p class="visual-number">
-                    VISUAL 3
-                </p>
-
-                <h2 id="survival-chart-title">
-                    Who Makes It to 65? 2019
-                </h2>
-
-                <p>
-                    Compare the percentage of female and male cohorts
-                    expected to survive to age 65 across countries.
-                </p>
-
-            </div>
-
-        </div>
+    </p>
 
 
-        <!-- Largest survival gap for selected year -->
+    <p class="meta">
 
-        <div class="survival-summary">
+        <span class="label">
+            Question
+        </span>
 
-            <strong id="largest-survival-gap">
-                —
-            </strong>
+        Who Outlives Whom?
 
-            <span id="largest-survival-country">
-                Largest female-male survival gap
-            </span>
-
-        </div>
+    </p>
 
 
-        <!-- Survival-gap color legend -->
+    <p class="meta">
 
-        <div class="survival-legend">
+        <span class="label">
+            Years
+        </span>
 
-            <span>
-                Smaller survival gap
-            </span>
+        1960–2019
 
-            <div class="survival-gradient"></div>
+    </p>
 
-            <span>
-                Larger survival gap
-            </span>
-
-        </div>
+</header>
 
 
-        <!-- D3 inserts Visual 3 here -->
 
-        <div id="survival-chart"></div>
+<main>
 
 
-        <p class="chart-note">
-            Each circle represents one country.
-            Points above the equality line indicate a higher female
-            survival rate. Points below the line indicate a higher male
-            survival rate. Color represents the size of the difference.
+<!-- =========================================
+     OVERVIEW
+========================================= -->
+
+<section
+    id="intro"
+    class="intro"
+    aria-labelledby="intro-title"
+>
+
+    <h2
+        id="intro-title"
+        class="section-title"
+    >
+        Overview
+    </h2>
+
+
+    <p class="intro-text">
+
+        Women outlive men in nearly every country with available
+        data, but how much longer they live and how that difference
+        has changed over time is less obvious.
+
+        This article uses World Bank data from 1960 to 2019 to ask
+        a simple question: who outlives whom?
+
+        We begin by looking at the overall rise in female and male
+        life expectancy. We then examine how the gap between them
+        has widened, narrowed, or changed direction in the world's
+        most populous countries. Finally, we look at survival to age
+        65 to ask whether the same longevity advantage appears when
+        survival is measured another way.
+
+        Each figure is interactive, so use the sliders, Play buttons,
+        story controls, and hover details to explore the patterns
+        yourself.
+
+    </p>
+
+</section>
+
+
+
+<!-- ==================================================
+     AND
+
+     ALI'S VISUAL
+=================================================== -->
+
+<section
+    id="point-0"
+    class="point"
+    aria-labelledby="point-0-title"
+>
+
+    <p class="kicker">
+        AND
+    </p>
+
+
+    <h2
+        id="point-0-title"
+        class="section-title"
+    >
+        Female and male life expectancy have both increased
+    </h2>
+
+
+    <div class="point-details">
+
+        <p>
+
+            The first part of the story is something females and
+            males share: people are living longer than they did
+            several decades ago.
+
+            Across countries, life expectancy increased for both
+            groups between 1960 and 2019. This overall rise gives us
+            the starting point for understanding the longevity gap.
+
         </p>
 
-    </article>
-            
+    </div>
 
 
-            <!-- =====================================
-                 VISUAL 4
-                 TEAMMATE
-                 
-                 TEAMMATE:
-                 Add Visual 4 D3 code to #visual-4.
-            ====================================== -->
 
-            <article class="chart-card">
+    <!-- =========================================
+         FIGURE 1 — ALI
+    ========================================== -->
 
-                <div class="chart-heading">
+    <section
+        id="figure-0"
+        class="figure"
+        aria-labelledby="f0-title"
+    >
 
-                    <div>
-
-                        <p class="visual-number">
-                            VISUAL 4
-                        </p>
-
-                        <h2>Visual 4</h2>
-
-                        <p>
-                            Teammate visualization goes here.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <!-- TEAMMATE: D3 VISUAL 4 CONTAINER -->
-                <div
-                    id="visual-4"
-                    class="visual-placeholder"
-                >
-                    Visual 4 placeholder
-                </div>
-
-            </article>
+        <p class="kicker">
+            Figure 1
+        </p>
 
 
-            <!-- =====================================
-                 VISUAL 5
-                 TEAMMATE
-                 
-                 TEAMMATE:
-                 Add Visual 5 D3 code to #visual-5.
-            ====================================== -->
-
-            <article class="chart-card">
-
-                <div class="chart-heading">
-
-                    <div>
-
-                        <p class="visual-number">
-                            VISUAL 5
-                        </p>
-
-                        <h2>Visual 5</h2>
-
-                        <p>
-                            Teammate visualization goes here.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <!-- TEAMMATE: D3 VISUAL 5 CONTAINER -->
-                <div
-                    id="visual-5"
-                    class="visual-placeholder"
-                >
-                    Visual 5 placeholder
-                </div>
-
-            </article>
+        <h2
+            id="f0-title"
+            class="figure-title"
+        >
+            Life expectancy has risen for both females and males
+        </h2>
 
 
-            <!-- =====================================
-                 VISUAL 6
-                 TEAMMATE
-                 
-                 TEAMMATE:
-                 Add Visual 6 D3 code to #visual-6.
-            ====================================== -->
-
-            <article class="chart-card">
-
-                <div class="chart-heading">
-
-                    <div>
-
-                        <p class="visual-number">
-                            VISUAL 6
-                        </p>
-
-                        <h2>Visual 6</h2>
-
-                        <p>
-                            Teammate visualization goes here.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <!-- TEAMMATE: D3 VISUAL 6 CONTAINER -->
-                <div
-                    id="visual-6"
-                    class="visual-placeholder"
-                >
-                    Visual 6 placeholder
-                </div>
-
-            </article>
-
-        </section>
+        <p
+            id="f0-subtitle"
+            class="figure-subtitle"
+        >
+            Life expectancy across countries, 1960–2019.
+        </p>
 
 
-        <!-- Shared tooltip -->
+
+        <!-- ==================================================
+             ALI:
+
+             ADD THE EXISTING
+             "Life Expectancy Across Countries, 1960–2019"
+             VISUALIZATION HERE.
+
+             D3 CHART CONTAINER:
+             #ali-life-expectancy-chart
+
+             OPTIONAL CONTROL CONTAINER:
+             #ali-controls
+
+             In script.js, look for:
+
+             // ALI VISUAL START
+
+             and paste the associated D3 code there.
+
+             STORY ROLE:
+             AND — both female and male life expectancy
+             increased over time.
+        =================================================== -->
+        <!-- =========================================
+     ALI VISUAL CONTROLS
+========================================= -->
+
+<div
+    id="ali-controls"
+    class="ali-controls"
+>
+
+    <label for="ali-country">
+        Select Country:
+    </label>
+
+    <select id="ali-country"></select>
+
+
+    <button
+        id="ali-reset"
+        type="button"
+    >
+        Reset Zoom
+    </button>
+
+
+    <span id="ali-window">
+        All years
+    </span>
+
+</div>
+
+
+<!-- =========================================
+     ALI LIFE EXPECTANCY VISUAL
+
+     script.js inserts the D3 chart here.
+========================================= -->
+
+<div
+    id="ali-life-expectancy-chart"
+    class="tf-chart"
+></div>
+
+       
+
+            <!--
+                Ali:
+                D3 visualization is inserted here.
+            -->
+
+        </div>
+
+
+        <p class="figure-note">
+
+            Female and male life expectancy have both increased
+            substantially since 1960.
+
+        </p>
+
+
+    </section>
+
+
+
+    <div class="point-main">
+
+        <p class="point-main-label">
+            Main point
+        </p>
+
+        <p>
+            Life expectancy increased for both females and males.
+            This gives us the shared upward trend that begins
+            the story.
+        </p>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ==================================================
+     BUT
+
+     MAHIR'S DUMBBELL VISUAL
+=================================================== -->
+
+<section
+    id="point-1"
+    class="point"
+    aria-labelledby="point-1-title"
+>
+
+    <p class="kicker">
+        BUT
+    </p>
+
+
+    <h2
+        id="point-1-title"
+        class="section-title"
+    >
+        Women now outlive men in the world's biggest countries
+    </h2>
+
+
+    <div class="point-details">
+
+        <p>
+
+            Female and male life expectancy both increased,
+            <strong>
+                but those gains were not equal.
+            </strong>
+
+            In 2019, women outlived men in all 30 of the world's
+            most populous countries.
+
+            That was not always true: in 1960 men lived longer
+            in Bangladesh, India and Iran, while the gap was
+            already around 7 to 8 years in Russia, South Korea
+            and Vietnam.
+
+            Since then, the gap has widened by more than half
+            a year in 18 of these countries, narrowed in 6 and
+            barely moved in 6.
+
+            Use the story buttons, drag the years or press Play
+            to see which countries moved the most.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =========================================
+         FIGURE 2
+         EXISTING DUMBBELL — KEEP
+    ========================================== -->
+
+    <section
+        id="figure-1"
+        class="figure"
+        aria-labelledby="f1-title"
+    >
+
+        <p class="kicker">
+            Figure 2
+        </p>
+
+
+        <h2
+            id="f1-title"
+            class="figure-title"
+        >
+            &nbsp;
+        </h2>
+
+
+        <p
+            id="f1-subtitle"
+            class="figure-subtitle"
+        ></p>
+
+
+
+        <!-- =========================================
+             STORY BUTTONS
+        ========================================== -->
+
         <div
-            id="tooltip"
-            class="tooltip"
+            class="stories"
+            role="group"
+            aria-label="Explore a story"
+        >
+
+            <span class="stories-label">
+                Explore a story
+            </span>
+
+
+            <button
+                type="button"
+                class="chip"
+                data-story="big"
+                aria-pressed="true"
+            >
+                The big picture
+            </button>
+
+
+            <button
+                type="button"
+                class="chip"
+                data-story="russia"
+                aria-pressed="false"
+            >
+                Russia after 1989
+            </button>
+
+
+            <button
+                type="button"
+                class="chip"
+                data-story="iran"
+                aria-pressed="false"
+            >
+                Iran in the 1980s
+            </button>
+
+
+            <button
+                type="button"
+                class="chip"
+                data-story="menfirst"
+                aria-pressed="false"
+            >
+                Where men once led
+            </button>
+
+        </div>
+
+
+        <p
+            id="story-text"
+            class="story-text"
+            aria-live="polite"
+        ></p>
+
+
+
+        <!-- =========================================
+             DUMBBELL CONTROLS
+
+             IMPORTANT:
+             IDs are unchanged so the teammate's
+             existing script keeps working.
+        ========================================== -->
+
+        <div class="controls">
+
+
+            <div class="control">
+
+                <label for="from-year">
+
+                    Starting year
+
+                    <output
+                        id="from-out"
+                        for="from-year"
+                    ></output>
+
+                </label>
+
+
+                <input
+                    id="from-year"
+                    type="range"
+                    min="1960"
+                    max="2019"
+                    step="1"
+                    value="1960"
+                >
+
+            </div>
+
+
+
+            <div class="control control-to">
+
+                <label for="to-year">
+
+                    End year
+
+                    <output
+                        id="to-out"
+                        for="to-year"
+                    ></output>
+
+                </label>
+
+
+                <div class="to-row">
+
+                    <button
+                        id="play"
+                        type="button"
+                        aria-pressed="false"
+                    >
+                        ▶ Play
+                    </button>
+
+
+                    <input
+                        id="to-year"
+                        type="range"
+                        min="1960"
+                        max="2019"
+                        step="1"
+                        value="2019"
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <div class="control">
+
+                <label for="sort">
+                    Sort rows by
+                </label>
+
+
+                <select id="sort">
+
+                    <option value="latest">
+                        Gap in 2019 (latest)
+                    </option>
+
+                    <option value="end">
+                        Gap in the end year
+                    </option>
+
+                    <option value="change">
+                        Change in the gap
+                    </option>
+
+                    <option value="population">
+                        Population
+                    </option>
+
+                    <option value="name">
+                        Name (A–Z)
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+
+        <p class="hint">
+
+            Hover over a row for details ·
+            Click a country to zoom in and explore further below ·
+            Press Play to watch the filled dots move through time.
+
+        </p>
+
+
+
+        <div
+            id="error"
+            class="error"
+            hidden
+        >
+
+            Could not load
+            <code>
+                life_expectancy_gap.csv
+            </code>.
+
+        </div>
+
+
+
+        <div
+            id="legend"
+            class="legend"
         ></div>
 
-    </main>
+
+        <div id="chart"></div>
 
 
-    <!-- Load D3 first -->
-    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+        <p
+            id="f1-note"
+            class="figure-note"
+        ></p>
 
-    <!-- Load dashboard JavaScript -->
-    <script src="main.js"></script>
+
+
+        <!-- =========================================
+             LINKED DETAIL VIEW
+
+             KEEP THIS.
+        ========================================== -->
+
+        <div class="detail">
+
+            <div class="detail-head">
+
+                <h3 id="detail-title">
+                    Zoom in
+                </h3>
+
+
+                <div class="detail-select">
+
+                    <label for="country-select">
+                        Country
+                    </label>
+
+                    <select id="country-select"></select>
+
+                </div>
+
+            </div>
+
+
+            <p
+                id="detail-sub"
+                class="detail-sub"
+            ></p>
+
+
+            <div id="detail-chart"></div>
+
+
+            <p class="hint">
+
+                Click or drag on this chart to move
+                the end year in the main chart.
+
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <div class="point-main">
+
+        <p class="point-main-label">
+            Main point
+        </p>
+
+        <p>
+
+            Life expectancy increased for both groups,
+            <strong>
+                but the size of the female–male gap
+                did not remain the same.
+            </strong>
+
+        </p>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ==================================================
+     THEREFORE
+
+     DENNISE'S SURVIVAL VISUAL
+=================================================== -->
+
+<section
+    id="point-3"
+    class="point"
+    aria-labelledby="point-3-title"
+>
+
+    <p class="kicker">
+        THEREFORE
+    </p>
+
+
+    <h2
+        id="point-3-title"
+        class="section-title"
+    >
+        Does the same difference appear in survival to age 65?
+    </h2>
+
+
+    <div class="point-details">
+
+        <p>
+
+            Life expectancy tells us how many years people
+            are expected to live.
+
+            <strong>
+                Therefore, we look at longevity another way:
+                who actually makes it to age 65?
+            </strong>
+
+            This visualization compares the percentage of
+            female and male cohorts expected to survive to
+            age 65.
+
+            Countries above the equality line have higher
+            female survival, while countries below the line
+            have higher male survival.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =========================================
+         FIGURE 3
+         DENNISE
+    ========================================== -->
+
+    <section
+        id="figure-3"
+        class="figure"
+        aria-labelledby="f3-title"
+    >
+
+        <p class="kicker">
+            Figure 3
+        </p>
+
+
+        <h2
+            id="f3-title"
+            class="figure-title"
+        >
+            Who makes it to 65?
+        </h2>
+
+
+        <p
+            id="f3-subtitle"
+            class="figure-subtitle"
+        >
+            Compare female and male survival to age 65
+            across countries.
+        </p>
+
+
+
+        <!-- =========================================
+             DENNISE'S EXISTING CONTROLS
+
+             IMPORTANT:
+             IDs are unchanged so we can grab the
+             existing Figure 3 logic from the team's
+             script.
+        ========================================== -->
+
+        <div class="controls controls-team">
+
+
+            <div class="control control-to">
+
+                <label for="f3-year">
+
+                    Year
+
+                    <output
+                        id="f3-year-out"
+                        for="f3-year"
+                    ></output>
+
+                </label>
+
+
+                <div class="to-row">
+
+                    <button
+                        id="f3-play"
+                        class="play-btn"
+                        type="button"
+                        aria-pressed="false"
+                    >
+                        ▶ Play
+                    </button>
+
+
+                    <input
+                        id="f3-year"
+                        type="range"
+                        min="1960"
+                        max="2019"
+                        step="1"
+                        value="2019"
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <div class="control">
+
+                <label for="f3-min">
+
+                    Highlight gaps of at least
+
+                    <output
+                        id="f3-min-out"
+                        for="f3-min"
+                    ></output>
+
+                    points
+
+                </label>
+
+
+                <input
+                    id="f3-min"
+                    type="range"
+                    min="0"
+                    max="30"
+                    step="1"
+                    value="0"
+                >
+
+            </div>
+
+
+        </div>
+
+
+
+        <p class="hint">
+
+            Hover over a circle for details ·
+            Slide the second control to fade countries
+            with a smaller gap ·
+            Press Play to watch countries move through time.
+
+        </p>
+
+
+
+        <div
+            class="error team-error"
+            hidden
+        >
+
+            Could not load the survival data.
+
+            Make sure the survival CSV used by the team
+            is in the expected folder.
+
+        </div>
+
+
+
+        <div
+            id="f3-legend"
+            class="legend"
+        ></div>
+
+
+        <!--
+            THIS IS YOUR ACTUAL D3 CONTAINER.
+            Do not rename it.
+        -->
+
+        <div
+            id="f3-chart"
+            class="tf-chart"
+        ></div>
+
+
+        <p
+            id="f3-note"
+            class="figure-note"
+        ></p>
+
+
+    </section>
+
+
+
+    <div class="point-main">
+
+        <p class="point-main-label">
+            Main point
+        </p>
+
+
+        <p>
+
+            The female longevity advantage is also visible
+            when we measure survival to age 65, giving us a
+            second way to understand who lives longer.
+
+        </p>
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================
+     DEVELOPMENT PROCESS
+========================================= -->
+
+<section
+    id="development"
+    class="notes"
+    aria-labelledby="development-title"
+>
+
+    <h2 id="development-title">
+        Development Process
+    </h2>
+
+    <h3>
+        What have we done so far?
+    </h3>
+
+    <p>
+        So far, we have explored World Bank data related to life expectancy
+        and created several interactive visualizations. We selected three
+        visuals that create an AND–BUT–THEREFORE story. Our visuals explore
+        changes in life expectancy, the female-male longevity gap, and
+        survival to age 65. We also added interactions such as sliders,
+        Play buttons, hover details, country selection, and zooming.
+    </p>
+
+    <h3>
+        What will be the most challenging part to design and why?
+    </h3>
+
+    <p>
+        The most challenging part will be making the three visualizations
+        feel like one connected story. Each visualization shows longevity
+        in a different way, so the transitions between them need to be clear.
+        We also need to make sure the interactions are useful without making
+        the page overwhelming. Our goal is for the interactions to help
+        explain the story instead of distracting from it.
+    </p>
+
+</section>
+
+
+
+
+<!-- =========================================
+     CONCLUSION
+========================================= -->
+
+<section
+    id="conclusion"
+    class="notes conclusion"
+    aria-labelledby="conclusion-title"
+>
+
+    <h2 id="conclusion-title">
+        Conclusion
+    </h2>
+
+
+    <p>
+
+        Female and male life expectancy have both increased
+        over time, but those gains have not always been equal.
+
+        The longevity gap has widened in some countries,
+        narrowed in others, and even changed direction.
+
+        Looking at survival to age 65 gives us another way
+        to see the same broader pattern: living longer is
+        only part of the story.
+
+    </p>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer>
+
+    <p>
+
+        Data:
+
+        <a
+            href="https://github.com/light-and-salt/World-Bank-Data-by-Indicators"
+            target="_blank"
+            rel="noopener"
+        >
+            World Bank
+        </a>.
+
+        Built with
+
+        <a
+            href="https://d3js.org/"
+            target="_blank"
+            rel="noopener"
+        >
+            D3.js
+        </a>.
+
+    </p>
+
+</footer>
+
+
+
+<!-- =========================================
+     SHARED TOOLTIP
+========================================= -->
+
+<div
+    id="tooltip"
+    class="tooltip"
+    role="tooltip"
+    aria-hidden="true"
+></div>
+
+
+
+<!-- =========================================
+     LOAD D3
+========================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+
+
+
+
+<script src="script.js"></script>
+
 
 </body>
 
